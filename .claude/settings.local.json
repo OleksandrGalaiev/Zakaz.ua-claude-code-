@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx playwright *)",
+      "WebFetch(domain:zakaz.ua)"
+    ]
+  }
+}
