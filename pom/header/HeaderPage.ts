@@ -3,7 +3,6 @@ import { Locator, Page } from '@playwright/test';
 export class HeaderPage {
   readonly page: Page;
   readonly root: Locator;
-  readonly menuButton: Locator;
   readonly logo: Locator;
   readonly catalogButton: Locator;
   readonly supportArmyLink: Locator;
@@ -20,11 +19,12 @@ export class HeaderPage {
   readonly accountDropDown: Locator
   readonly accountLoginedBtn: Locator
   readonly headerLoginBlock: Locator
+  readonly productCatalog: Locator
+  readonly productCatalogItem: Locator
 
   constructor(page: Page) {
     this.page = page;
     this.root = page.locator('#header');
-    this.menuButton = page.getByRole('button').first();
     this.logo = page.locator('#header').getByRole('link', { name: 'Zakaz logo' });
     this.catalogButton = page.locator('//button[@data-marker="sidebar-button"]');
     this.supportArmyLink = page.locator('[data-marker="zsu-help"]');
@@ -41,6 +41,8 @@ export class HeaderPage {
     this.accountDropDown = page.locator('a[data-marker*="Header"][href*="profile"]');
     this.accountLoginedBtn = page.locator("//div[contains(@class, 'HeaderLogin__accountDropdown')]//span[text()='Account']");
     this.headerLoginBlock = page.locator(".HeaderLogin__login")
+    this.productCatalog = page.locator('[data-testid="categoriesMenuButton"]')
+    this.productCatalogItem = page.locator("//span[contains(@class, 'CategoriesMenuListItem__link_withChildren')]")
   }
 
     async swtichToLanguage(language: string){
@@ -57,6 +59,12 @@ export class HeaderPage {
         ])
         await newPage.waitForLoadState('load')
         return newPage
+    }
+
+    async openCategoryMenupoint(categoryName:string){
+      let menuItem = await this.productCatalogItem.filter({hasText:categoryName})
+      await menuItem.scrollIntoViewIfNeeded()
+      await menuItem.click()
     }
 
 }
