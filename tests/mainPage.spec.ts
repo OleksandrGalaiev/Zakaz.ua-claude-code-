@@ -3,7 +3,7 @@ import {test} from "../test-options"
 import {HomeDelivery, LanguageSwitcher} from "../types/mainPageTypes"
 import { expect, Page } from "playwright/test"
 
-test.describe('Main page tests', async()=>{
+test.describe('Main page tests',{tag:['@auth']}, async()=>{
 
     const shop: HomeDelivery[] = [
         {'shopName':"WINETIME",'shopMarker':'winetime','shopLogoName':'WINETIME'},
@@ -39,6 +39,51 @@ test.describe('Main page tests', async()=>{
             })
         })
     }
+})
+
+test.describe('Main page tests without storage state', {tag:'@incognito'}, async()=>{
+    
+    const expectedCities: string[] = [
+        'Київ','Вінниця','Дніпро','Житомир','Запоріжжя',
+        'Івано-Франківськ','Кривий Ріг','Львів','Одеса','Полтава',
+        'Рівне','Харків','Чернівці',
+    ]
+    test('Check that city selector shows the list of available cities',
+        {tag:'@debug'}, async({app, ZAKAZ})=>{
+        await test.step('Open main page', async()=>{
+            await app.goto(ZAKAZ)
+        })
+        await test.step('Click on location button in header', async()=>{
+            await app.header.openCitySelector()
+        })
+        await test.step('Check city selector modal is visible', async()=>{
+            await expect(app.header.cityModal).toBeVisible()
+        })
+        await test.step('Check list of cities matches expected', async()=>{
+            const cities = await app.header.getAvailableCities()
+            expect(cities).toEqual(expectedCities)
+        })
+    })
+
+    for(const city of expectedCities){
+        test(`Switch delivery city to ${city}`, async({app, ZAKAZ})=>{
+            await test.step('Open main page', async()=>{
+                await app.goto(ZAKAZ)
+            })
+            await test.step('Click on City button in header', async()=>{
+                await app.header.citySelectButton.click()
+            })
+            await test.step('Wait for city selector popup', async()=>{
+                await app.header.cityModal.waitFor({state:'visible'})
+            })
+            await test.step(`Choose city "${city}"`, async()=>{
+                await app.header.chooseCity(city)
+            })
+            await test.step(`Assert "${city}" is visible on the city button`, async()=>{
+                await expect(app.header.citySelectButton).toHaveText(city)
+            })
+        })
+    }
 
     const languages: LanguageSwitcher[] = [
         {'language':'Рус', 'loginBtnText':'Войти'},
@@ -56,5 +101,4 @@ test.describe('Main page tests', async()=>{
             })
     })
     }
-
 })

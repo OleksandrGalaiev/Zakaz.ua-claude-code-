@@ -22,6 +22,10 @@ export class HeaderPage {
   readonly productCatalog: Locator
   readonly productCatalogItem: Locator
 
+  readonly citySelectButton: Locator
+  readonly cityModal: Locator
+  readonly cityItems: Locator
+
   constructor(page: Page) {
     this.page = page;
     this.root = page.locator('#header');
@@ -43,7 +47,30 @@ export class HeaderPage {
     this.headerLoginBlock = page.locator(".HeaderLogin__login")
     this.productCatalog = page.locator('[data-testid="categoriesMenuButton"]')
     this.productCatalogItem = page.locator("//span[contains(@class, 'CategoriesMenuListItem__link_withChildren')]")
+
+    this.citySelectButton = page.locator('[data-marker="Select City Button"]')
+    this.cityModal = page.locator('[data-marker="City select modal"]')
+    this.cityItems = this.cityModal.locator('[data-marker^="City Item "]')
   }
+
+    async openCitySelector(){
+      await this.citySelectButton.click()
+      await this.cityModal.waitFor({state:'visible'})
+    }
+
+    async getAvailableCities(){
+      return await this.cityItems.allTextContents()
+    }
+
+    async chooseCity(cityName:string){
+      const currentCity = (await this.citySelectButton.textContent())?.trim()
+      if(currentCity === cityName){
+        await this.page.locator('[data-marker="Close popup"]').click()
+      } else {
+        await this.page.locator(`[data-marker="City Item ${cityName}"]`).click()
+      }
+      await this.cityModal.waitFor({state:'hidden'})
+    }
 
     async swtichToLanguage(language: string){
       if(await this.languageTitle.textContent() !== language){

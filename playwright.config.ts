@@ -33,12 +33,14 @@ export default defineConfig({
         storageState: STORAGE_STATE,
       },
       dependencies: ['setup'],
+      grep: /@auth/,
     },
     {
       name: 'incognito',
       use: {
         ...devices['Desktop Chrome'],
       },
+      grep: /@incognito/,
     },
   ],
 });
