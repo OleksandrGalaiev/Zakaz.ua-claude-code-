@@ -34,7 +34,7 @@ export class HeaderPage {
 
     this.partnersDropdown = page.locator("//span[text()='For partners']");
     this.vacanciesLink = page.locator("//a[text()='Vacancies']").first();
-    this.promotionsLink = page.locator("//a[contains(@href, 'akciyni_tovary')]");
+    this.promotionsLink = this.root.locator("a[href*='akciyni_tovary']").first();
     this.contactsLink = page.getByRole('link', { name: 'Contacts' }).first();
 
     this.loginButton = page.getByTestId('login-button');
