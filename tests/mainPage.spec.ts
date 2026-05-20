@@ -49,7 +49,7 @@ test.describe('Main page tests without storage state', {tag:'@incognito'}, async
         'Рівне','Харків','Чернівці',
     ]
     test('Check that city selector shows the list of available cities',
-        {tag:'@debug'}, async({app, ZAKAZ})=>{
+        {tag:'@mainPage'}, async({app, ZAKAZ})=>{
         await test.step('Open main page', async()=>{
             await app.goto(ZAKAZ)
         })
