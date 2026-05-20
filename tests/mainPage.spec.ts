@@ -72,9 +72,8 @@ test.describe('Main page tests without storage state', {tag:'@incognito'}, async
             })
             await test.step('Click on City button in header', async()=>{
                 await app.header.citySelectButton.click()
-            })
-            await test.step('Wait for city selector popup', async()=>{
                 await app.header.cityModal.waitFor({state:'visible'})
+
             })
             await test.step(`Choose city "${city}"`, async()=>{
                 await app.header.chooseCity(city)
