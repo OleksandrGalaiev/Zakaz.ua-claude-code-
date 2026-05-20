@@ -7,9 +7,9 @@ export class MyAccount{
     private readonly myAddressesLink: Locator
     private readonly addressCard: Locator
     private readonly addressCardHeader: Locator
-    private readonly settingsEmailField: Locator
-    private readonly settingsPhoneField: Locator
-    private readonly settingsNameField: Locator
+    settingsEmailField: Locator
+    settingsPhoneField: Locator
+    settingsNameField: Locator
     settingsBlock: Locator
 
     constructor(page: Page){
@@ -38,17 +38,5 @@ export class MyAccount{
         let firstAddress = this.page.locator('[data-marker="Address item"]').first()
         let orderAddress = await firstAddress.locator('.AccountAddressItem__title').textContent()
         return orderAddress
-    }
-
-    async getSettingsEmail(){
-        return await this.settingsEmailField.textContent()
-    }
-
-    async getSettingsPhone(){
-        return await this.settingsPhoneField.textContent()
-    }
-
-    async getSettingsName(){
-        return await this.settingsNameField.textContent()
     }
 }

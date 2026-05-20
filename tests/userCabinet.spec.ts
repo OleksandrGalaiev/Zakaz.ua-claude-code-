@@ -33,9 +33,9 @@ test.describe('User Cabinet', {tag:'@auth'}, async()=>{
         })
         await test.step('Validate email, phone and name on Settings page', async()=>{
             await app.myAccount.settingsBlock.waitFor({'state':'visible'})
-            expect(await app.myAccount.getSettingsEmail()).toEqual(expectedEmail)
-            expect(await app.myAccount.getSettingsPhone()).toEqual(expectedPhone)
-            expect(await app.myAccount.getSettingsName()).toEqual(expectedName)
+            expect(await app.myAccount.settingsEmailField.textContent()).toEqual(expectedEmail)
+            expect(await app.myAccount.settingsPhoneField.textContent()).toEqual(expectedPhone)
+            expect(await app.myAccount.settingsNameField.textContent()).toEqual(expectedName)
         })
     })
 
