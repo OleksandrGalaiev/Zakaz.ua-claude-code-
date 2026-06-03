@@ -1,11 +1,11 @@
 import { Locator, Page } from '@playwright/test';
+import { BasePage } from './BasePage';
 
-export class PromotionsPage {
-    readonly page: Page;
+export class PromotionsPage extends BasePage{
     readonly promotionsBlock: Locator;
 
     constructor(page: Page) {
-        this.page = page;
+        super(page)
         this.promotionsBlock = page.locator('[data-marker="categories slider"]')
     }
 }

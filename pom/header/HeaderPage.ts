@@ -1,7 +1,7 @@
 import { Locator, Page } from '@playwright/test';
+import { BasePage } from '../BasePage';
 
-export class HeaderPage {
-  readonly page: Page;
+export class HeaderPage extends BasePage{
   readonly root: Locator;
   readonly logo: Locator;
   readonly catalogButton: Locator;
@@ -13,6 +13,7 @@ export class HeaderPage {
   readonly partnersDropdown: Locator;
   readonly vacanciesLink: Locator;
   readonly promotionsLink: Locator;
+  readonly recipesLink: Locator;
   readonly contactsLink: Locator;
 
   readonly loginButton: Locator;
@@ -27,7 +28,7 @@ export class HeaderPage {
   readonly cityItems: Locator
 
   constructor(page: Page) {
-    this.page = page;
+    super(page)
     this.root = page.locator('#header');
     this.logo = page.locator('#header').getByRole('link', { name: 'Zakaz logo' });
     this.catalogButton = page.locator('//button[@data-marker="sidebar-button"]');
@@ -39,6 +40,7 @@ export class HeaderPage {
     this.partnersDropdown = page.locator("//span[text()='For partners']");
     this.vacanciesLink = page.locator("//a[text()='Vacancies']").first();
     this.promotionsLink = this.root.locator("a[href*='akciyni_tovary']").first();
+    this.recipesLink = this.root.locator("a[href$='/recipes/']").first();
     this.contactsLink = page.getByRole('link', { name: 'Contacts' }).first();
 
     this.loginButton = page.getByTestId('login-button');
@@ -77,6 +79,10 @@ export class HeaderPage {
         await this.languageSwitcher.click()
         await this.page.getByRole('link', { name: language, exact: true }).click();
       }
+    }
+
+    async openRecipesPage(){
+        await this.recipesLink.click()
     }
 
     async openPromotionsPage(){

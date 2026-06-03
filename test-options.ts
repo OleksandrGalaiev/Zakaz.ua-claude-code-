@@ -1,15 +1,15 @@
 import { test as base } from '@playwright/test';
-import { BaseTest } from './pom/BaseTest';
+import { Pages } from './pom/Pages';
 
 
 export type TestFixtures = {
-  app: BaseTest;
+  app: Pages;
   ZAKAZ: string
 };
 
 export const test = base.extend<TestFixtures>({
   app: async ({ page }, use) => {
-    const app = new BaseTest(page);
+    const app = new Pages(page);
     await use(app);
   },
   ZAKAZ:['',{option:true}]

@@ -8,7 +8,7 @@ setup('authenticate', async ({ app, ZAKAZ, page}) => {
   if (!login || !password) {
     throw new Error('USER_LOGIN and USER_PASSWORD must be set in .env');
   }
-  await app.goto(ZAKAZ);
+  await app.mainPage.goto(ZAKAZ);
   await app.header.loginButton.click();
   await expect(app.loginPage.dialog).toBeVisible();
 

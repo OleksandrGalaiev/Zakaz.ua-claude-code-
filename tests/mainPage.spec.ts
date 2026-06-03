@@ -30,7 +30,7 @@ test.describe('Main page tests',{tag:['@auth']}, async()=>{
             {tag:'@mainPage'}, async({app, ZAKAZ})=>{
             let externalShop: ExternalPage
             await test.step(`Open main page and click ${shopName} btn`, async()=>{
-                await app.goto(ZAKAZ)
+                await app.mainPage.goto(ZAKAZ)
                 let externalPage = await app.mainPage.openDeliveryShop(shopMarker)
                 externalShop = new ExternalPage(externalPage)
             })
@@ -51,7 +51,7 @@ test.describe('Main page tests without storage state', {tag:'@incognito'}, async
     test('Check that city selector shows the list of available cities',
         {tag:'@mainPage'}, async({app, ZAKAZ})=>{
         await test.step('Open main page', async()=>{
-            await app.goto(ZAKAZ)
+            await app.mainPage.goto(ZAKAZ)
         })
         await test.step('Click on location button in header', async()=>{
             await app.header.openCitySelector()
@@ -68,7 +68,7 @@ test.describe('Main page tests without storage state', {tag:'@incognito'}, async
     for(const city of expectedCities){
         test(`Switch delivery city to ${city}`, async({app, ZAKAZ})=>{
             await test.step('Open main page', async()=>{
-                await app.goto(ZAKAZ)
+                await app.mainPage.goto(ZAKAZ)
             })
             await test.step('Click on City button in header', async()=>{
                 await app.header.citySelectButton.click()
@@ -92,12 +92,12 @@ test.describe('Main page tests without storage state', {tag:'@incognito'}, async
     for(const {language, loginBtnText} of languages){
         test(`check redirect for ${language}`, async({app, ZAKAZ})=>{
             await test.step(`Open main page and redirect to ${language}`,async()=>{
-                await app.goto(ZAKAZ)
+                await app.mainPage.goto(ZAKAZ)
                 await app.header.swtichToLanguage(language)
             })
             await test.step('Check login btn localization', async()=>{
                 expect(await app.header.loginButton.textContent()).toEqual(loginBtnText)
             })
     })
-    }
+    }  
 })

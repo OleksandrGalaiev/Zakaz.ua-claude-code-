@@ -5,9 +5,10 @@ import { LoginPage } from "./LoginPage"
 import { MyAccount } from "./header/MyAccount"
 import { ExternalPage } from "./externalShop"
 import { PromotionsPage } from "./PromotionsPage"
+import { RecipesPage } from "./RecipesPage"
 
 
-export class BaseTest{
+export class Pages{
     page: Page
     mainPage: MainPage
     header: HeaderPage
@@ -15,6 +16,7 @@ export class BaseTest{
     myAccount: MyAccount
     externalShop: ExternalPage
     promotionalPage: PromotionsPage
+    recipesPage: RecipesPage
 
     constructor(page:Page){
         this.page = page
@@ -24,16 +26,6 @@ export class BaseTest{
         this.myAccount = new MyAccount(this.page)
         this.externalShop = new ExternalPage(this.page)
         this.promotionalPage = new PromotionsPage(this.page)
+        this.recipesPage = new RecipesPage(this.page)
     }
-
-    async goto(url:string){
-        await this.page.goto(url)
-        await this.mainPage.homeRetails.waitFor({state:'visible'})
-    }
-
-    async getCurrentUrl(){
-        return await this.page.url()
-    }
-
-
 }

@@ -1,9 +1,8 @@
 import { Locator, Page } from "@playwright/test";
+import { BasePage } from "../BasePage";
 
-
-export class MyAccount{
-    private readonly page: Page
-    private readonly accountDropdownTrigger: Locator
+export class MyAccount extends BasePage{
+    readonly accountDropdownTrigger: Locator
     private readonly myAddressesLink: Locator
     private readonly addressCard: Locator
     private readonly addressCardHeader: Locator
@@ -13,7 +12,7 @@ export class MyAccount{
     settingsBlock: Locator
 
     constructor(page: Page){
-        this.page = page
+        super(page)
         this.accountDropdownTrigger = page.locator("//span[contains(@class, 'AccountButtonContent')]").nth(1)
         this.myAddressesLink = page.getByRole('link', { name: 'Мої адреси' })
         this.addressCard = page.locator('[data-marker="Address"]')
@@ -30,7 +29,9 @@ export class MyAccount{
     }
 
     async chooseMyAccountSideBarMenuPoint(menuPoint: string){
-        await this.page.locator('//div[@data-maker="Account sidebar"]//div[@class="AccountNavigation__listItem"]', {hasText:menuPoint}).click()
+        await this.page.locator('//div[@data-maker="Account sidebar"]//div[@class="AccountNavigation__listItem"]')
+        .filter({'hasText':menuPoint})
+        .click()
     }
 
 

@@ -4,7 +4,7 @@ test.describe('User Cabinet', {tag:'@auth'}, async()=>{
 
     test('First saved address contains "Воскресенська"',{tag:'@userCabinet'}, async({app, ZAKAZ})=>{
         await test.step('Open main page', async()=>{
-            await app.goto(ZAKAZ)
+            await app.mainPage.goto(ZAKAZ)
         })
         await test.step('Open Account dropdown and choose My orders menu point', async()=>{
             await app.myAccount.openMyAccountHeaderMenuPoint('Мої замовлення')
@@ -23,7 +23,7 @@ test.describe('User Cabinet', {tag:'@auth'}, async()=>{
         const expectedName = 'Александр'
 
         await test.step('Open main page', async()=>{
-            await app.goto(ZAKAZ)
+            await app.mainPage.goto(ZAKAZ)
         })
         await test.step('Open Account dropdown and choose My orders menu point', async()=>{
             await app.myAccount.openMyAccountHeaderMenuPoint('Мої замовлення')

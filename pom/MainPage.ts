@@ -1,13 +1,13 @@
 import { Locator, Page } from "playwright";
+import { BasePage } from "./BasePage";
 
 
-export class MainPage {
-    private page: Page
+export class MainPage extends BasePage{
     homeRetails: Locator
     retailsInfoBlock: Locator
 
     constructor(page: Page){
-        this.page = page
+        super(page)
         this.homeRetails = page.locator('[data-marker^="MainRetails Card"]').first()
         this.retailsInfoBlock = page.locator("//div[contains(@class, 'RetailsInfo')]").first()
     }
@@ -22,6 +22,11 @@ export class MainPage {
         ])
         await newPage.waitForLoadState('load')
         return newPage
+    }
+
+    async goto(url: string): Promise<void> {
+        await super.goto(url)
+        await this.homeRetails.waitFor({'state':'visible'})
     }
 
 }
