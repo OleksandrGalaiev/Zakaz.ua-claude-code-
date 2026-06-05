@@ -15,14 +15,12 @@ export class HeaderPage extends BasePage{
   readonly promotionsLink: Locator;
   readonly recipesLink: Locator;
   readonly contactsLink: Locator;
-
   readonly loginButton: Locator;
   readonly accountDropDown: Locator
   readonly accountLoginedBtn: Locator
   readonly headerLoginBlock: Locator
   readonly productCatalog: Locator
   readonly productCatalogItem: Locator
-
   readonly citySelectButton: Locator
   readonly cityModal: Locator
   readonly cityItems: Locator
