@@ -6,10 +6,8 @@ export class HeaderPage extends BasePage{
   readonly logo: Locator;
   readonly catalogButton: Locator;
   readonly supportArmyLink: Locator;
-  
   readonly languageTitle: Locator
   readonly languageSwitcher: Locator;
-
   readonly partnersDropdown: Locator;
   readonly vacanciesLink: Locator;
   readonly promotionsLink: Locator;
